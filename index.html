@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JASKM — Journal of Applied Social Mechanics & Interpersonal Kinematics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand: #E87722;
+  --brand-dark: #C46010;
+  --brand-light: #FFF4EB;
+  --teal: #007398;
+  --teal-dark: #005A78;
+  --text: #2B2B2B;
+  --text-muted: #6B6B6B;
+  --text-light: #9B9B9B;
+  --border: #E0E0E0;
+  --bg: #FFFFFF;
+  --bg-off: #F7F7F7;
+  --bg-dark: #1B2A3A;
+  --bg-darker: #142130;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --sans: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --chinese: 'Noto Sans SC', sans-serif;
+  --max-w: 1200px;
+  --article-w: 780px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--teal); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--teal-dark); text-decoration: underline; }
+
+/* ── Top Bar ── */
+.topbar {
+  background: var(--bg-dark);
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: .3px;
+  padding: 6px 0;
+}
+.topbar-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar a { color: #ccc; font-size: 12px; }
+.topbar a:hover { color: #fff; text-decoration: none; }
+
+/* ── Header ── */
+.site-header {
+  background: var(--bg);
+  border-bottom: 3px solid var(--brand);
+}
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.journal-logo { display: flex; flex-direction: column; }
+.journal-logo .j-abbrev {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--brand);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.journal-logo .j-full {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  letter-spacing: .2px;
+}
+
+/* ── Nav ── */
+.site-nav { background: var(--bg-off); border-bottom: 1px solid var(--border); }
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+}
+.nav-link {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  border-bottom: 2px solid transparent;
+  transition: all .15s;
+  cursor: pointer;
+}
+.nav-link:hover { color: var(--brand); text-decoration: none; border-bottom-color: var(--brand); }
+.nav-link.active { color: var(--brand); border-bottom-color: var(--brand); }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+  color: #fff;
+  padding: 64px 24px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -50%; right: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(232,119,34,.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  max-width: 700px;
+}
+.hero .chinese-slang {
+  font-family: var(--chinese);
+  font-size: 18px;
+  color: var(--brand);
+  margin-bottom: 24px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.hero p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #C8D4DE;
+  max-width: 650px;
+  margin-bottom: 14px;
+}
+.hero p strong { color: #fff; }
+
+/* ── Sections ── */
+.section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--brand);
+  display: inline-block;
+}
+
+/* ── About Cards ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.about-card {
+  background: var(--bg-off);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+  transition: box-shadow .2s;
+}
+.about-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.about-card h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.about-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* ── Authors ── */
+.authors-list { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+.author-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-off);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px 20px;
+}
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.author-info .author-name { font-weight: 600; font-size: 14px; }
+.author-info .author-role { font-size: 12px; color: var(--text-muted); }
+
+/* ── Paper Listing ── */
+.paper-list { display: flex; flex-direction: column; gap: 0; }
+.paper-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.paper-item:first-child { padding-top: 0; }
+.paper-badge {
+  flex-shrink: 0;
+  width: 72px; height: 92px;
+  background: var(--brand);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.paper-badge .vol { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: .8; }
+.paper-badge .issue { font-family: var(--serif); font-size: 28px; font-weight: 700; line-height: 1; }
+.paper-badge .type { font-size: 9px; text-transform: uppercase; letter-spacing: .5px; opacity: .7; margin-top: 4px; }
+.paper-body { flex: 1; }
+.paper-meta {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.paper-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--teal);
+  cursor: pointer;
+  margin-bottom: 6px;
+  transition: color .15s;
+}
+.paper-title:hover { color: var(--teal-dark); }
+.paper-authors { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+.paper-abstract {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.paper-keywords { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.kw {
+  font-size: 11px;
+  background: var(--brand-light);
+  color: var(--brand-dark);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* ── Article View ── */
+.article-view {
+  max-width: var(--article-w);
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+.article-breadcrumb { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
+.article-breadcrumb a { color: var(--teal); }
+.article-header {
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.article-type {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--brand);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.article-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.article-authors-line { font-size: 15px; color: var(--teal); margin-bottom: 4px; }
+.article-affiliation { font-size: 13px; color: var(--text-muted); font-style: italic; margin-bottom: 12px; }
+.article-doi { font-size: 12px; color: var(--text-light); }
+.article-dates { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+.article-abstract-box {
+  background: var(--bg-off);
+  border-left: 4px solid var(--brand);
+  padding: 24px 28px;
+  margin-bottom: 36px;
+  border-radius: 0 4px 4px 0;
+}
+.article-abstract-box h2 {
+  font-family: var(--sans);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.article-abstract-box p { font-size: 14.5px; line-height: 1.75; color: var(--text); }
+.article-abstract-box .article-keywords { margin-top: 14px; font-size: 13px; color: var(--text-muted); }
+.article-abstract-box .article-keywords strong { color: var(--text); }
+
+/* ── Article Body ── */
+.article-body h2 {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 36px 0 14px;
+  padding-top: 8px;
+}
+.article-body h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 28px 0 10px;
+}
+.article-body p {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  text-align: justify;
+  hyphens: auto;
+}
+.article-body .equation {
+  display: block;
+  text-align: center;
+  font-family: 'Cambria Math', 'Latin Modern Math', Georgia, serif;
+  font-size: 16px;
+  padding: 18px 0;
+  color: var(--text);
+  letter-spacing: .3px;
+}
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 24px;
+  font-family: var(--sans);
+  font-size: 13.5px;
+}
+.article-body table caption {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  text-align: left;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.article-body th {
+  background: var(--bg-off);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--border);
+  font-size: 13px;
+}
+.article-body td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.article-body tr:last-child td { border-bottom: 2px solid var(--border); }
+.article-body .footnote {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  margin-top: 36px;
+  padding-top: 20px;
+  line-height: 1.7;
+  font-style: italic;
+}
+.article-body .footnote p { font-family: var(--sans); font-size: 13px; text-align: left; }
+.article-body .references {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+}
+.article-body .references h2 { margin-top: 0; }
+.article-body .references p {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  text-align: left;
+  margin-bottom: 10px;
+  padding-left: 28px;
+  text-indent: -28px;
+  line-height: 1.6;
+}
+
+/* ── Loading ── */
+.loading {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text-light);
+  font-size: 14px;
+}
+.loading::after {
+  content: '';
+  display: block;
+  width: 28px; height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  margin: 16px auto 0;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--bg-dark);
+  color: #8A9BAD;
+  padding: 40px 24px 28px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.footer-inner { max-width: var(--max-w); margin: 0 auto; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 28px;
+}
+.footer-col h4 {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  margin-bottom: 12px;
+}
+.footer-col p { margin-bottom: 6px; }
+.footer-col a { color: var(--brand); }
+.footer-col a:hover { color: #fff; }
+.footer-disclaimer {
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 20px;
+  font-size: 12px;
+  color: #6A7B8D;
+  line-height: 1.8;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .journal-logo .j-abbrev { font-size: 24px; }
+  .nav-inner { overflow-x: auto; }
+  .nav-link { padding: 10px 14px; font-size: 13px; white-space: nowrap; }
+  .hero h1 { font-size: 26px; }
+  .hero .chinese-slang { font-size: 15px; }
+  .paper-item { flex-direction: column; gap: 14px; }
+  .paper-badge { width: 100%; height: auto; flex-direction: row; padding: 10px 16px; gap: 8px; }
+  .paper-badge .issue { font-size: 20px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .article-title { font-size: 22px; }
+  .article-body p { font-size: 15px; }
+}
+
+/* ── Transitions ── */
+.page { display: none; animation: fadeIn .25s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.back-top { text-align: center; padding: 20px; font-size: 13px; }
+.back-top a { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- ═══ Top Bar ═══ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>A publication of the Applied Behavioral Research Division, McDonald's, Melaka, Malaysia</span>
+    <a href="mailto:applied.behavioral.research@gmail.com">Contact</a>
+  </div>
+</div>
+
+<!-- ═══ Header ═══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="journal-logo" href="#" onclick="navigate('home'); return false;" style="text-decoration:none;">
+      <span class="j-abbrev">JASKM</span>
+      <span class="j-full">Journal of Applied Social Mechanics &amp; Interpersonal Kinematics</span>
+    </a>
+  </div>
+</header>
+
+<!-- ═══ Nav ═══ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="nav-link active" data-page="home" onclick="navigate('home')">About the Journal</a>
+    <a class="nav-link" data-page="issues" onclick="navigate('issues')">All Issues</a>
+  </div>
+</nav>
+
+<!-- ═══ PAGE: HOME ═══ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>Journal of Applied Social Mechanics &amp; Interpersonal Kinematics</h1>
+      <div class="chinese-slang">「学不会，根本学不会」</div>
+      <p><strong>JASKM</strong> is an independent, open-access journal dedicated to the rigorous quantitative analysis of interpersonal phenomena that conventional social science has, for reasons both methodological and self-preserving, declined to study.</p>
+      <p>Founded in 2026, the journal emerged from a series of sustained naturalistic observations conducted across multiple McDonald's dining facilities in Melaka, Malaysia, where a localized three-node interpersonal stasis event — subsequently classified as the <strong>W-R-Y Phenomenon</strong> — was identified, quantified, and subjected to formal kinematic analysis.</p>
+      <p>The journal publishes original research articles, addenda, and comparative frameworks in the field of applied interpersonal kinematics. All papers undergo peer review by the full editorial board, which convenes at a corner booth.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Aims &amp; Scope</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Interpersonal Kinematics</h3>
+        <p>The application of mechanical and thermodynamic principles to romantic and social dynamics. We model intent as kinetic energy, inaction as inertia, and rejection as a repulsive force vector — because someone had to.</p>
+      </div>
+      <div class="about-card">
+        <h3>Parasitic Load Analysis</h3>
+        <p>Quantification of wasted emotional and capital resources within asymmetric interpersonal configurations, measured in Parasitic Emotional Joules (PEJ). The unit was invented because existing units of measurement were insufficiently depressing.</p>
+      </div>
+      <div class="about-card">
+        <h3>Comparative Framework</h3>
+        <p>Establishment of normative baselines (the H-O Standard Model) against which pathological configurations can be formally evaluated. Current diagnostic sensitivity: 6,400:1 between anomalous and functional states.</p>
+      </div>
+      <div class="about-card">
+        <h3>Predictive Modeling</h3>
+        <p>Stress-test simulations of interpersonal configurations under extreme environmental conditions, including but not limited to: post-midnight Discord voice channels, payday capital surges, and rival node intrusions.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <h2 class="section-title">Editorial Board</h2>
+    <div class="authors-list">
+      <div class="author-badge">
+        <div class="author-avatar">NY</div>
+        <div class="author-info">
+          <div class="author-name">Ng Yong Jie</div>
+          <div class="author-role">Editor-in-Chief &amp; Corresponding Author</div>
+        </div>
+      </div>
+      <div class="author-badge">
+        <div class="author-avatar">MH</div>
+        <div class="author-info">
+          <div class="author-name">Mark Hui Qin</div>
+          <div class="author-role">Associate Editor &amp; Field Diagnostician</div>
+        </div>
+      </div>
+      <div class="author-badge">
+        <div class="author-avatar">CL</div>
+        <div class="author-info">
+          <div class="author-name">Chloe Lau</div>
+          <div class="author-role">Associate Editor &amp; Calibration Specialist</div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:20px; font-size:13px; color:var(--text-muted); line-height:1.7;">
+      <em>JASKM does not accept external submissions at this time. All research is conducted exclusively by the editorial board. The ethical review board (Mark's mum) has not yet expanded its jurisdiction to external parties.</em>
+    </p>
+  </div>
+
+  <div class="section" style="padding-top:0;">
+    <h2 class="section-title">Latest Articles</h2>
+    <div class="paper-list" id="home-paper-list"><div class="loading">Loading papers…</div></div>
+    <p style="margin-top:20px;"><a href="#" onclick="navigate('issues'); return false;" style="font-weight:600;">View all issues →</a></p>
+  </div>
+</div>
+
+<!-- ═══ PAGE: ALL ISSUES ═══ -->
+<div id="page-issues" class="page">
+  <div class="section">
+    <h2 class="section-title">Volume 1 (2026)</h2>
+    <div class="paper-list" id="issues-paper-list"><div class="loading">Loading papers…</div></div>
+  </div>
+</div>
+
+<!-- ═══ PAGE: ARTICLE ═══ -->
+<div id="page-article" class="page">
+  <div class="article-view" id="article-container"><div class="loading">Loading article…</div></div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>About JASKM</h4>
+        <p>The Journal of Applied Social Mechanics &amp; Interpersonal Kinematics is an independent, satirical-academic publication. All research is observational, all equations are original, and all McValue meals were consumed in the line of duty.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p><a href="mailto:applied.behavioral.research@gmail.com">applied.behavioral.research<br>@gmail.com</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>ISSN</h4>
+        <p>Pending (optimistically)</p>
+        <h4 style="margin-top:16px;">Publisher</h4>
+        <p>Applied Behavioral Research Division, McDonald's, Melaka</p>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      <strong>Disclaimer:</strong> This journal is a satirical, non-commercial project created entirely for entertainment and personal amusement. It is not affiliated with, endorsed by, or associated with McDonald's Corporation, any academic institution, or any recognized scientific body. The "Applied Behavioral Research Division, McDonald's, Melaka, Malaysia" is a fictional institutional affiliation used for comedic purposes. No actual scientific research methodology was employed. All names, designations, and scenarios are used in a humorous context. This website and its contents are not intended for commercial use. The authors assume no responsibility for any interpersonal kinematic failures experienced by readers.
+      <br><br>
+      © 2026 JASKM. All rights reserved. Built with thermodynamic resignation and zero external funding.
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════
+// PAPER LOADER — reads from /papers/ directory
+// ══════════════════════════════════════════════
+
+let papers = [];
+
+// Parse a paper .html file: extract JSON metadata from <!--META ... META--> and body HTML after it
+function parsePaperFile(text) {
+  const metaMatch = text.match(/<!--META\s*([\s\S]*?)\s*META-->/);
+  if (!metaMatch) return null;
+  const meta = JSON.parse(metaMatch[1]);
+  const body = text.substring(text.indexOf('META-->') + 7).trim();
+  meta.body = body;
+  return meta;
+}
+
+async function loadPapers() {
+  try {
+    const manifestResp = await fetch('papers.json');
+    const manifest = await manifestResp.json(); // array of filenames
+
+    const loaded = [];
+    for (const filename of manifest) {
+      try {
+        const resp = await fetch('papers/' + filename);
+        const text = await resp.text();
+        const paper = parsePaperFile(text);
+        if (paper) loaded.push(paper);
+      } catch (e) {
+        console.warn('Failed to load paper:', filename, e);
+      }
+    }
+    papers = loaded;
+    renderAll();
+  } catch (e) {
+    console.error('Failed to load papers manifest:', e);
+    document.getElementById('home-paper-list').innerHTML = '<p style="color:#999;">Failed to load papers. If running locally, use a local server (see README).</p>';
+    document.getElementById('issues-paper-list').innerHTML = '<p style="color:#999;">Failed to load papers.</p>';
+  }
+}
+
+// ══════════════════════════════════════════════
+// RENDERING
+// ══════════════════════════════════════════════
+
+function renderPaperCard(paper) {
+  return `
+    <div class="paper-item">
+      <div class="paper-badge">
+        <span class="vol">Vol ${paper.vol}</span>
+        <span class="issue">${paper.issue}</span>
+        <span class="type">${paper.type === 'Addendum' ? 'Add.' : 'Art.'}</span>
+      </div>
+      <div class="paper-body">
+        <div class="paper-meta">${paper.type} · ${paper.published}</div>
+        <div class="paper-title" onclick="navigate('article', '${paper.id}')">${paper.title}</div>
+        <div class="paper-authors">${paper.authors}</div>
+        <div class="paper-abstract">${paper.abstract}</div>
+        <div class="paper-keywords">${paper.keywords.map(k => '<span class="kw">' + k + '</span>').join('')}</div>
+      </div>
+    </div>`;
+}
+
+function renderArticle(paper) {
+  const datesHtml = paper.submitted
+    ? '<div class="article-dates">Submitted: ' + paper.submitted + ' | Accepted: ' + paper.accepted + ' | Published: ' + paper.published + '</div>'
+    : '<div class="article-dates">Published: ' + paper.published + '</div>';
+
+  return `
+    <div class="article-breadcrumb"><a href="#" onclick="navigate('issues'); return false;">All Issues</a> › Vol. ${paper.vol}, No. ${paper.issue}</div>
+    <div class="article-header">
+      <div class="article-type">${paper.type}</div>
+      <div class="article-title">${paper.title}</div>
+      <div class="article-authors-line">${paper.authors}</div>
+      <div class="article-affiliation">${paper.affiliation}</div>
+      <div class="article-doi">DOI: ${paper.doi}</div>
+      ${datesHtml}
+    </div>
+    <div class="article-abstract-box">
+      <h2>Abstract</h2>
+      <p>${paper.abstract}</p>
+      <div class="article-keywords"><strong>Keywords:</strong> ${paper.keywords.join(', ')}</div>
+    </div>
+    <div class="article-body">${paper.body}</div>
+    <div class="back-top"><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ Back to top</a></div>`;
+}
+
+function renderAll() {
+  document.getElementById('home-paper-list').innerHTML = papers.slice(0, 2).map(renderPaperCard).join('');
+  document.getElementById('issues-paper-list').innerHTML = papers.map(renderPaperCard).join('');
+
+  // If we're already on an article page via hash, render it now
+  const hash = window.location.hash.replace('#', '');
+  if (hash && hash !== 'home' && hash !== 'issues') {
+    const paper = papers.find(p => p.id === hash);
+    if (paper) {
+      document.getElementById('article-container').innerHTML = renderArticle(paper);
+    }
+  }
+}
+
+// ══════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════
+
+function navigate(page, articleId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+  const navMatch = document.querySelector('.nav-link[data-page="' + page + '"]');
+  if (navMatch) navMatch.classList.add('active');
+
+  if (page === 'home') {
+    document.getElementById('page-home').classList.add('active');
+    window.location.hash = '';
+  } else if (page === 'issues') {
+    document.getElementById('page-issues').classList.add('active');
+    window.location.hash = '#issues';
+  } else if (page === 'article' && articleId) {
+    const paper = papers.find(p => p.id === articleId);
+    if (paper) {
+      document.getElementById('article-container').innerHTML = renderArticle(paper);
+      document.getElementById('page-article').classList.add('active');
+      window.location.hash = '#' + articleId;
+    }
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'issues') navigate('issues');
+  else if (hash === '' || hash === 'home') navigate('home');
+  else if (papers.find(p => p.id === hash)) navigate('article', hash);
+});
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+
+async function init() {
+  await loadPapers();
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'issues') navigate('issues');
+  else if (hash && papers.find(p => p.id === hash)) navigate('article', hash);
+}
+
+init();
+</script>
+
+</body>
+</html>
